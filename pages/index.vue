@@ -31,8 +31,18 @@
           <h1 class="text-xl">Questionnaire</h1>
         </div>
 
-        <div class="flex justify-center p-5">
-          <button v-bind:class="startButton" v-on:click="start">Start</button>
+        <div class="flex justify-center p-3">
+          <div v-bind:class="startButton">
+            <p class="text-lg flex flex-col items-center">
+              Welcome to Enpal's Solar Savings Calculator, you'll be asked a few questions to know how much you'd save if you use Enpal's green services. The more questions you answer, the more accurate results you will get, and the more savings we will probably make sure you make! When starting this qestionnaire, you will be prompted for your location. We would like to assure you that we will never share it with anyone nor will we even save it, it will be just used during the calculation process to know the weather conditions and legal regulations in your city/county
+            </p>
+            <button
+              v-on:click="start"
+              class="p-2 text-l border-2 border-white bg-lightBlue hover:border-lightBlue rounded-lg m-2 cursor-pointer hover:bg-white hover:text-lightBlue text-white"
+            >
+              Start
+            </button>
+          </div>
           <div>
             <h2 class="text-3xl">{{ currentQuestion.question }}</h2>
             <div class="text-center">
@@ -64,8 +74,8 @@
           </button>
         </div>
 
-        <div v-bind:class="finalReport" class="flex justify-center flex-row align-center ">
-          <h1 class="text-2xl p-3">
+        <div v-bind:class="finalReport" class="flex flex-col items-center">
+          <h1 class="text-2xl">
             You will be saving around {{ savings }} euros yearly.
           </h1>
           <h2 class="text-xl">{{ prize }}</h2>
@@ -207,7 +217,7 @@ export default {
     },
 
     decidePrize() {
-      switch (this.savings) {
+      switch (true) {
         case this.savings >= 0 && this.savings <= 10000:
           this.prize = "This can get you a lot of lollipops or smth!";
           break;
@@ -219,7 +229,7 @@ export default {
             "This can get you a 7-day trip to the Maldives every month!";
           break;
         case this.savings > 100000:
-          this.prize = "This can get you Jeff Bezos in a bag!";
+          this.prize = "This can get you 10 Jeff Bezoses in a bag!";
           break;
       }
     },
