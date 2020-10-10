@@ -11,9 +11,6 @@ module.exports = {
       green: "#7FBE5E",
       blue: "#28536C",
       lightBlue: "#769BB0",
-      sycamore: "#AAA939",
-      blueSmoke: "#AAA939",
-      matterhorn: "#AAA939",
       red: "#F44639",
       white: "#ffffff"
     },
