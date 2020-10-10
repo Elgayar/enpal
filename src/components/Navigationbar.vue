@@ -3,7 +3,6 @@
 <template>
   <div id="nav">
     <div id="header">
-      <img src="../assets/enpal.png" height="50" width="70" />
     </div>
 
     <a
@@ -43,7 +42,6 @@ export default {
 
 <style>
 main {
-  background-image: url("../assets/panel.jpg");
   background-size: cover;
 }
 
