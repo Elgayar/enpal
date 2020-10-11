@@ -16,16 +16,22 @@
       </button>
     </div>
 
-    <div class="flex justify-center">
-      <h1 class="md:text-5xl text-3xl">
-        <b>S</b>olar <b>E</b>npal e<b>X</b>traordinary savings
-        calc<b>Y</b>oulator
-      </h1>
+    <div class="">
+      <div
+        class="relative pt-10 p-2 md:p-10 mt-20 lg:mr-4 rounded-lg bg-green lg:flex-1 shadow-2xl"
+      >
+        <div class="flex justify-center">
+          <h1 class="md:text-5xl text-3xl">
+            <b>S</b>olar <b>E</b>npal e<b>X</b>traordinary savings
+            calc<b>Y</b>oulator
+          </h1>
+        </div>
+      </div>
     </div>
 
     <div class="flex flex-row flex-wrap">
       <div
-        class="relative pt-10 p-2 md:p-10 mt-20 lg:mr-4 rounded-lg bg-cararra lg:flex-1 shadow-2xl"
+        class="relative pt-10 p-2 md:p-10 mt-20 lg:mr-4 rounded-lg bg-white lg:flex-1 shadow-2xl"
       >
         <div class="bg-green p-5 absolute -top-2 left-3 rounded-lg w-3/6">
           <h1 class="text-xl">Questionnaire</h1>
@@ -34,11 +40,19 @@
         <div class="flex justify-center p-3">
           <div v-bind:class="startButton">
             <p class="text-lg flex flex-col items-center">
-              Welcome to Enpal's Solar Savings Calculator, you'll be asked a few questions to know how much you'd save if you use Enpal's green services. The more questions you answer, the more accurate results you will get, and the more savings we will probably make sure you make! When starting this qestionnaire, you will be prompted for your location. We would like to assure you that we will never share it with anyone nor will we even save it, it will be just used during the calculation process to know the weather conditions and legal regulations in your city/county
+              Welcome to Enpal's Solar Savings Calculator, you'll be asked a few
+              questions to know how much you'd save if you use Enpal's green
+              services. The more questions you answer, the more accurate results
+              you will get, and the more savings we will probably make sure you
+              make! When starting this qestionnaire, you will be prompted for
+              your location. We would like to assure you that we will never
+              share it with anyone nor will we even save it, it will be just
+              used during the calculation process to know the weather conditions
+              and legal regulations in your city/county
             </p>
             <button
               v-on:click="start"
-              class="p-2 text-l border-2 border-white bg-lightBlue hover:border-lightBlue rounded-lg m-2 cursor-pointer hover:bg-white hover:text-lightBlue text-white"
+              class="p-2 text-l border-2 border-white bg-green hover:border-lightBlue rounded-lg m-2 cursor-pointer hover:bg-white hover:text-lightBlue text-white"
             >
               Start
             </button>
@@ -50,7 +64,7 @@
                 v-for="answer in currentQuestion.answers"
                 :key="answer.answer"
                 v-on:click="pickAnswer(answer)"
-                class="p-5 text-xl border-2 border-lightBlue rounded-lg m-2 cursor-pointer hover:bg-lightBlue hover:text-white"
+                class="p-5 text-xl border-2 border-green rounded-lg m-2 cursor-pointer hover:bg-lightBlue hover:text-white"
               >
                 {{ answer.answer }}
               </h3>
@@ -115,36 +129,52 @@ export default {
     async start() {
       this.questions = [
         {
+          index: 0,
+          question: "Please enter your location",
+        },
+        {
           index: 1,
-          question: "What came first, the chicken or the egg?",
+          question: "What shape of roof does your home/building have?",
           answers: [
-            { answer: "Chicken", score: 10000 },
-            { answer: "Egg", score: 15000 },
-            { answer: "RWTH Baby!", score: 30000 },
+            { answer: "Flat Roof  ― ", score: 1000 },
+            { answer: "Gabel Roof  ⌂", score: 2000 },
+            { answer: "Pent Roof  / ", score: 1000 },
           ],
           status: false,
           picked: "",
         },
         {
           index: 2,
-          question: "Is Deutsche Bahn punctual?",
+          question: "What material is the current roof?",
           answers: [
-            { answer: "Nope", score: 10000 },
-            { answer: "Never", score: 15000 },
-            { answer: "No", score: 30000 },
+            { answer: "Asphalt  ", score: 200 },
+            { answer: "Tile  ", score: 200 },
+            { answer: "Metal ", score: 500 },
+            { answer: "Wood", score: 0 },
+          ],
+          status: false,
+          picked: "",
+        },
+        {
+          index: 3,
+          question: "How much do you pay for bills in a year?",
+          answers: [
+            { answer: "400-500 € ", score: 200 },
+            { answer: "550-650 €", score: 300 },
+            { answer: "700 +€", score: 400 },
           ],
           score: 10000,
           status: false,
           picked: "",
         },
         {
-          index: 3,
-          question:
-            "What's heavier, a kilogram of steel, or a kilogram of feathers?",
+          index: 4,
+          question: "How do you describe the weather where you live?",
+
           answers: [
-            { answer: "Steel", score: 0 },
-            { answer: "Feathers", score: 0 },
-            { answer: "Neither", score: 30000 },
+            { answer: "Mostly rainy", score: 200 },
+            { answer: "Mostly sunny", score: 700 },
+            { answer: "Mostly grey", score: 300 },
           ],
           score: 10000,
           status: false,
@@ -157,7 +187,7 @@ export default {
 
       var ax = this.$axios;
       var startPos;
-      var geoSuccess = async function (position) {
+      var geoSuccess = async function(position) {
         startPos = position;
         const weather = await ax.$get(
           `http://api.openweathermap.org/data/2.5/weather?lat=${position.coords.latitude}&lon=${position.coords.longitude}&appid=6e22b82df4de52b4c202acd2e0038b4c`
@@ -218,18 +248,16 @@ export default {
 
     decidePrize() {
       switch (true) {
-        case this.savings >= 0 && this.savings <= 10000:
-          this.prize = "This can get you a lot of lollipops or smth!";
+        case this.savings >= 0 && this.savings <= 2000:
+          this.prize = "Now your Christmas gift budget is secured!";
           break;
-        case this.savings > 10000 && this.savings < 50000:
-          this.prize = "This can get you the latest BMW every year!";
-          break;
-        case this.savings > 50000 && this.savings < 100000:
+        case this.savings > 2000 && this.savings < 3000:
           this.prize =
-            "This can get you a 7-day trip to the Maldives every month!";
+            "In 10 years your child will have the financial support to get a Bachelor's Degree in Germany";
           break;
-        case this.savings > 100000:
-          this.prize = "This can get you 10 Jeff Bezoses in a bag!";
+        case this.savings > 3000:
+          this.prize =
+            "This can get you a 7-day trip to the Maldives every 2 years!";
           break;
       }
     },
