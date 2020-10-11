@@ -3,8 +3,8 @@
     <!-- Notification Popup -->
     <div
       class="px-6 text-cararra bg-green py-4 mb-6 border-0 fixed z-10 bottom-0 left-0 sm:left-3"
-      v-bind:class="notificationDisplay"
-    >
+      v-bind:class="notificationDisplay">
+      
       <span class="inline-block align-middle mr-8">
         {{ notificationText }}
       </span>
