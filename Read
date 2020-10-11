@@ -1,0 +1,3 @@
+In order to execute the application firstly on the folder path on cmd follow the steps:
+1. npm i (it will make the neccessary installations) 
+2.npm run dev
